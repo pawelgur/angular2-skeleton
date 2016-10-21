@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs", // es2015 modules are required for rollup/treeshaking
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+
+  "files": [
+    "app/app.module.ts",
+    "app/app.component.ts",
+    "app/main.aot.ts",
+    "app/main.ts",
+    "./typings/index.d.ts"
+  ],
+
+  // PROBLEM: ngc compiles files with absolute import paths, while system js have them configured as liases
+  "angularCompilerOptions": {
+    "genDir": "aot",
+    "skipMetadataEmit" : true
+  }
+}
