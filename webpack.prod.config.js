@@ -4,8 +4,8 @@ let webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'main': './src/main.ts',
-        'main.aot': './src/main.aot.ts',
+        'bootstrap.prod': './src/main.ts',
+        'bootstrap.aot.prod': './src/main.aot.ts',
     },
 
     output: {
@@ -30,6 +30,19 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false
+            },
+            sourceMap: true
+        }),
         new webpack.ProgressPlugin(),
         new webpack.ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows

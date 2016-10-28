@@ -1,10 +1,10 @@
 'use strict';
 let path = require('path');
 let webpack = require('webpack');
+let ngtools = require('@ngtools/webpack');
 
 module.exports = {
     entry: {
-        'main': './src/main.ts',
         'main.aot': './src/main.aot.ts',
     },
 
@@ -30,7 +30,12 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.ProgressPlugin(),
+        new ngtools.AotPlugin({
+            tsConfigPath: './tsconfig.aot.json',
+            baseDir: path.resolve(__dirname, ''),
+            entryModule: path.join(__dirname, 'src', 'app', 'app.module') + '#AppModule'
+        }),
+        // new webpack.ProgressPlugin(),
         new webpack.ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
