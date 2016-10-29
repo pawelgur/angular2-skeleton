@@ -1,6 +1,8 @@
 {
+  // typescript does same job as babel (transpiles ESnext to ESold) + compiles typescript
+
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
     "declaration": false,
@@ -20,7 +22,14 @@
     "typeRoots": [ "./node_modules/@types" ],
     "types": [
       "node"
-    ]
+    ],
+    "lib": ["es6", "dom"]
+    // when setting es5 ts uses lib.d.ts for es5 (without promises and other es6 stuff)
+    // this is becaus you there's no es6 stuff in the browser thus you shouldn't use it
+    // although we use various shims to support them so we need to explicitly tell
+    // typescript to allow us use es6 stuff when compiling to es5
+
+    // typescript transpiles es6 to es5 but it doesn't include polyfills for missing features
   },
   "angularCompilerOptions": {
     "debug": true
